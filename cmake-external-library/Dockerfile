@@ -17,3 +17,12 @@ RUN printf "unset BASH_ENV PROMPT_COMMAND ENV\nsource scl_source enable devtools
 ENV BASH_ENV="/usr/bin/scl_enable" \
     ENV="/usr/bin/scl_enable" \
     PROMPT_COMMAND=". /usr/bin/scl_enable"
+
+RUN yum install -y openssh-server \
+    && ssh-keygen -A \
+    && chmod 0700 /root/.ssh \
+    && echo "root:root" | chpasswd
+
+EXPOSE 22
+
+CMD ["/usr/sbin/sshd", "-D", "-e"]

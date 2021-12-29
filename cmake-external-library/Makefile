@@ -13,3 +13,8 @@ stop:
 rm:
 	@docker stop cmake-external-library
 	@docker rm cmake-external-library
+login:
+	@docker login
+tag:
+	@echo 'input tag: '
+	@read version && docker tag sunzhenkai/cmake-external-library:latest sunzhenkai/cmake-external-library:$${version} && docker docker push sunzhenkai/cmake-external-library:$${version}
