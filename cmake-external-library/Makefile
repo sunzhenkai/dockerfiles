@@ -3,7 +3,7 @@
 build:
 	@docker build -t sunzhenkai/cmake-external-library .
 create:
-	@docker run -it -d --name=cmake-external-library sunzhenkai/cmake-external-library
+	@docker run -it -d --sysctl net.core.somaxconn=10240 --name=cmake-external-library sunzhenkai/cmake-external-library
 run:
 	@docker exec -it cmake-external-library /bin/bash
 rmi:
