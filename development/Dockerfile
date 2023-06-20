@@ -4,7 +4,7 @@ LABEL version="v0.0.1"
 SHELL ["/bin/bash", "--login", "-c"]
 
 RUN pacman-mirrors --geoip && sudo pacman -Syyu \
-    && pacman -S --noconfirm --needed vim openssh
+    && pacman -S --noconfirm --needed vim openssh make cmake 
 
 RUN ssh-keygen -A && chmod 0700 /root/.ssh
 
