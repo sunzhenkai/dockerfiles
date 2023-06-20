@@ -11,4 +11,5 @@ RUN ssh-keygen -A && chmod 0700 /root/.ssh
 COPY config/vimrc /root/.vimrc
 
 EXPOSE 22
+WORKDIR /root
 CMD ["/usr/sbin/sshd", "-D", "-e"]
