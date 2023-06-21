@@ -19,7 +19,9 @@ RUN echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
 RUN echo "PubkeyAuthentication yes" >> /etc/ssh/sshd_config
 
 # copy config
-COPY config/vimrc /root/.vimrc
+COPY env/vim/install-vimrc.sh /tmp/install-vimrc.sh
+COPY env/vim/vimrc /root/.vimrc
+RUN bash /tmp/install-vimrc.sh
 
 EXPOSE 22
 WORKDIR /root

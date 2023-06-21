@@ -3,9 +3,11 @@
 AUTHOR = sunzhenkai
 PROJECT = development
 CONTAINER_NAME = dev-base
+# @env DOCKER_BUILDKIT=1 docker build -t $(AUTHOR)/$(PROJECT) .
 
 build:
-	@env DOCKER_BUILDKIT=1 docker build -t $(AUTHOR)/$(PROJECT) .
+	@git submodule update --init
+	@docker build -t $(AUTHOR)/$(PROJECT) .
 create:
 	@docker run -it -d --privileged --sysctl net.core.somaxconn=10240 -p 2022:22 --name=$(CONTAINER_NAME) $(AUTHOR)/$(PROJECT)
 login:
