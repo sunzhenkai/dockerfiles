@@ -4,15 +4,13 @@ AUTHOR = sunzhenkai
 PROJECT = development
 CONTAINER_NAME = dev-base
 
-test:
-	@echo $(AUTHOR)
 build:
-	@docker build -t $(AUTHOR)/$(PROJECT) .
+	@env DOCKER_BUILDKIT=1 docker build -t $(AUTHOR)/$(PROJECT) .
 create:
-	@docker run -it -d --sysctl net.core.somaxconn=10240 --name=$(CONTAINER_NAME) $(AUTHOR)/$(PROJECT)
+	@docker run -it -d --privileged --sysctl net.core.somaxconn=10240 --name=$(CONTAINER_NAME) $(AUTHOR)/$(PROJECT)
 login:
 	@docker exec -it $(CONTAINER_NAME) /bin/bash
-remove-image:
+rmi:
 	@docker rmi $(AUTHOR)/$(PROJECT)
 stop:
 	@docker stop $(CONTAINER_NAME)
@@ -21,4 +19,6 @@ rm:
 	@docker rm $(CONTAINER_NAME)
 tag:
 	@echo 'input tag: '
-	@read version && docker tag $(AUTHOR)/$(PROJECT):latest $(AUTHOR)/$(PROJECT):$${version} && docker docker push $(AUTHOR)/$(PROJECT):$${version}
+	@read version && docker tag $(AUTHOR)/$(PROJECT):latest $(AUTHOR)/$(PROJECT):$${version} && docker push $(AUTHOR)/$(PROJECT):$${version}
+logs:
+	@docker logs $(CONTAINER_NAME)
