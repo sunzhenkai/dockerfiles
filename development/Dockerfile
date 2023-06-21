@@ -14,6 +14,9 @@ RUN git clone https://github.com/syl20bnr/spacemacs $HOME/.emacs.d
 RUN ssh-keygen -A && chmod 0700 /root/.ssh \
     && echo LANG=en_US.UTF-8 > /etc/locale.conf
 RUN systemctl enable sshd
+RUN echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
+RUN echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
+RUN echo "PubkeyAuthentication yes" >> /etc/ssh/sshd_config
 
 # copy config
 COPY config/vimrc /root/.vimrc
