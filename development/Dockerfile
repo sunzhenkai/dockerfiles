@@ -9,6 +9,10 @@ RUN pacman-mirrors --geoip && sudo pacman -Syyu \
 
 # spacemacs
 RUN git clone https://github.com/syl20bnr/spacemacs $HOME/.emacs.d
+# vim
+COPY env/vim/install-vimrc.sh /tmp/install-vimrc.sh
+COPY env/vim/vimrc /root/.vimrc
+RUN bash /tmp/install-vimrc.sh
 
 # config
 RUN ssh-keygen -A && chmod 0700 /root/.ssh \
@@ -17,11 +21,6 @@ RUN systemctl enable sshd
 RUN echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
 RUN echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
 RUN echo "PubkeyAuthentication yes" >> /etc/ssh/sshd_config
-
-# copy config
-COPY env/vim/install-vimrc.sh /tmp/install-vimrc.sh
-COPY env/vim/vimrc /root/.vimrc
-RUN bash /tmp/install-vimrc.sh
 
 EXPOSE 22
 WORKDIR /root
