@@ -18,6 +18,6 @@ RUN systemctl enable sshd
 # copy config
 COPY config/vimrc /root/.vimrc
 
-EXPOSE 22
+EXPOSE 22:2022
 WORKDIR /root
 ENTRYPOINT ["/usr/sbin/init"]
