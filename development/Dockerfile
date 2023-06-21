@@ -21,6 +21,7 @@ RUN systemctl enable sshd
 RUN echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
 RUN echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
 RUN echo "PubkeyAuthentication yes" >> /etc/ssh/sshd_config
+RUN touch /root/.ssh/authorized_keys && chmod 0644 /root/.ssh/authorized_keys
 
 EXPOSE 22
 WORKDIR /root
