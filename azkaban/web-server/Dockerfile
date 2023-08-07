@@ -12,8 +12,8 @@ RUN sed -i 's/"com.moowork.node" version "1.2.0"/("com.github.node-gradle.node")
     # sed -i 's/org.apache.commons:commons-dbcp2:2.7.0/org.apache.commons:commons-dbcp2:2.9.0/g' build.gradle && \
     # sed -i 's/mysql:mysql-connector-java:8.0.20/mysql:mysql-connector-java:8.0.33/g' build.gradle && \
     ../gradlew build installDist -x test
-WORKDIR /src/azkaban/azkaban-db
-RUN ../gradlew build installDist
+# WORKDIR /src/azkaban/azkaban-db
+# RUN ../gradlew build installDist
 
 FROM apache/hadoop:3 as hadoop
 
@@ -21,7 +21,7 @@ FROM amazoncorretto:8-alpine-jre
 RUN apk update && apk add mariadb-client
 WORKDIR /app/azkaban-web-server
 COPY --from=builder /src/azkaban/azkaban-web-server/build/install/azkaban-web-server .
-COPY --from=builder /src/azkaban/azkaban-db/build/distributions/azkaban-db-0.1.0-SNAPSHOT.tar.gz .
+# COPY --from=builder /src/azkaban/azkaban-db/build/distributions/azkaban-db-0.1.0-SNAPSHOT.tar.gz .
 COPY --from=hadoop /opt/hadoop /app/hadoop
 COPY entrypoint.sh /app/azkaban-web-server/bin/
 ENV HADOOP_HOME=/app/hadoop

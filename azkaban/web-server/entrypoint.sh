@@ -24,18 +24,6 @@ sed -i "s/mysql.password=azkaban/mysql.password=$MYSQL_PASSWORD/g" ${script_dir}
 sed -i "s/mysql.user=azkaban/mysql.user=$MYSQL_USER/g" ${script_dir}/../conf/azkaban.properties
 sed -i "s/mysql.host=localhost/mysql.host=$MYSQL_HOST/g" ${script_dir}/../conf/azkaban.properties
 
-# init database
-if [ ! -e 'dbinited' ]; then
-    tar -xf azkaban-db-0.1.0-SNAPSHOT.tar.gz
-    mariadb --host=$MYSQL_HOST --user=$MYSQL_USER --password=$MYSQL_PASSWORD --database=azkaban <azkaban-db-0.1.0-SNAPSHOT/create-all-sql-0.1.0-SNAPSHOT.sql
-    if [ "$?" == "0" ]; then
-        touch dbinited
-        echo "init database successed"
-    else
-        echo "init database failed"
-    fi
-fi
-
 # sh ${script_dir}/internal/internal-start-web.sh 2>&1
 [ -e "currentpid" ] && rm currentpid
 sh /app/azkaban-web-server/bin/start-web.sh
@@ -52,5 +40,3 @@ while test -e "/proc/${pid}"; do
     echo "[$(date)] azkaban process is running. [pid=$pid]"
     sleep 3
 done
-
-sh
