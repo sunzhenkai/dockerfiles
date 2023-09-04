@@ -10,7 +10,7 @@ RUN apt install -y init vim openssl openssh-server make cmake git emacs python3-
 
 # pip packages
 RUN pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
-RUN pip install jupyter numpy panda
+RUN pip install jupyter numpy pandas seaborn matplotlib scipy scikit-learn
 
 ## spacemacs
 # RUN git clone https://github.com/syl20bnr/spacemacs $HOME/.emacs.d
