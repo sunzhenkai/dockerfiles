@@ -6,7 +6,7 @@ COPY assets/timezone /etc/
 
 RUN apt-get update
 RUN apt-get install -y init openssh-server 
-RUN apt-get install -y autoconf automake binutils bison findutils flex gawk \
+RUN apt-get install -y git autoconf automake binutils bison findutils flex gawk \
     gcc-7 g++-7 gettext grep gzip libtool m4 make patch pkgconf sed texinfo python3-pip
 
 RUN ln -fs /usr/bin/gcc-7 /usr/bin/gcc
