@@ -19,9 +19,9 @@ sed -i "s/mysql.user=azkaban/mysql.user=$MYSQL_USER/g" ${script_dir}/../conf/azk
 sed -i "s/mysql.host=localhost/mysql.host=$MYSQL_HOST/g" ${script_dir}/../conf/azkaban.properties
 echo "executor.port=${EXECUTOR_PORT}" >>conf/azkaban.properties
 
+table_count=$(mariadb --host $MYSQL_HOST --port=$MYSQL_PORT --user=$MYSQL_USER --password=$MYSQL_PASSWORD --database=azkaban -e 'show tables' | wc -l)
 # init database
-table_count=$(mariadb --host $MYSQL_HOST --user=MYSQL_USER --password=MYSQL_PASSWORD --database=azkaban -e 'show tables' | wc -l)
-if [ ! -e 'dbinited' ] && [ table_count -le 4 ]; then
+if [ ! -e 'dbinited' ] && [ $table_count -le 4 ]; then
   mariadb --host=$MYSQL_HOST --user=$MYSQL_USER --password=$MYSQL_PASSWORD --database=azkaban </app/azkaban-db/create-all-sql-*.sql
   if [ "$?" == "0" ]; then
     touch dbinited
