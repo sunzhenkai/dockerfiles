@@ -3,7 +3,7 @@
 FROM openjdk:8 as builder
 ARG AZKABAN_VERSION
 WORKDIR /src
-RUN git clone https://gitee.com/szhenkai/azkaban.git && cd azkaban && git reset --hard ${AZKABAN_VERSION} && git submodule update --init
+RUN git clone https://github.com/azkaban/azkaban.git && cd azkaban && git reset --hard ${AZKABAN_VERSION} && git submodule update --init
 WORKDIR /src/azkaban/azkaban-exec-server
 # Fix: Could not GET 'https://nodejs.org/dist/v8.10.0/ivy.xml'. Received status code 403 from server: Forbidden
 # See: https://github.com/srs/gradle-node-plugin/issues/292#issuecomment-562848790
