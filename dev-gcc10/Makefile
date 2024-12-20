@@ -4,7 +4,7 @@ NAME=dev-gcc10
 build:
 	@docker build -t sunzhenkai/${NAME} .
 create:
-	@docker run -it -d --sysctl net.core.somaxconn=10240 --name=${NAME} sunzhenkai/${NAME}
+	@docker run -it -d --privileged --sysctl net.core.somaxconn=10240 --name=${NAME} sunzhenkai/${NAME}
 run:
 	@docker exec -it ${NAME} /bin/bash
 rmi:
