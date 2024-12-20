@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 LABEL maintainer="zhenkai.sun@qq.com"
 SHELL ["/bin/bash", "--login", "-c"]
 #COPY assets/sources.list /etc/apt/sources.list
@@ -7,13 +7,13 @@ COPY assets/timezone /etc/
 RUN apt-get update
 RUN apt-get install -y init openssh-server 
 RUN apt-get install -y git autoconf automake binutils bison findutils flex gawk \
-    gcc-7 g++-7 gettext grep gzip libtool m4 make patch pkgconf sed texinfo python3-pip
+    gcc-10 g++-10 gettext grep gzip libtool m4 make patch pkgconf sed texinfo python3-pip
 
-RUN ln -fs /usr/bin/gcc-7 /usr/bin/gcc
-RUN ln -fs /usr/bin/g++-7 /usr/bin/g++
+RUN ln -fs /usr/bin/gcc-10 /usr/bin/gcc
+RUN ln -fs /usr/bin/g++-10 /usr/bin/g++
 RUN pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
-ENV CC=/usr/bin/gcc-7
-ENV CXX=/usr/bin/g++7
+ENV CC=/usr/bin/gcc-10
+ENV CXX=/usr/bin/g++10
 
 # config
 RUN ssh-keygen -A && mkdir -p /root/.ssh && chmod 0700 /root/.ssh \
