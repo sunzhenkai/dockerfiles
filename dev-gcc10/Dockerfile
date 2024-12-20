@@ -5,10 +5,9 @@ SHELL ["/bin/bash", "--login", "-c"]
 COPY assets/timezone /etc/
 
 RUN apt-get update
-RUN apt-get install -y init openssh-server 
 RUN apt-get install -y git autoconf automake binutils bison findutils flex gawk \
     gcc-10 g++-10 gettext grep gzip libtool m4 make patch pkgconf sed texinfo python3-pip \
-    gdb
+    gdb wget curl vim  
 
 # cmake
 RUN wget https://github.com/Kitware/CMake/releases/download/v3.26.4/cmake-3.26.4-linux-x86_64.sh \
@@ -21,16 +20,5 @@ RUN pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 ENV CC=/usr/bin/gcc-10
 ENV CXX=/usr/bin/g++10
 
-# config
-RUN ssh-keygen -A && mkdir -p /root/.ssh && chmod 0700 /root/.ssh \
-    && echo LANG=en_US.UTF-8 > /etc/locale.conf
-RUN systemctl enable ssh
-RUN echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
-RUN echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
-RUN echo "PubkeyAuthentication yes" >> /etc/ssh/sshd_config
-RUN touch /root/.ssh/authorized_keys && chmod 0644 /root/.ssh/authorized_keys
-
-# ssh port
-EXPOSE 22
 WORKDIR /root
-ENTRYPOINT ["/usr/sbin/init"]
+ENTRYPOINT ["/usr/bin/sh"]
