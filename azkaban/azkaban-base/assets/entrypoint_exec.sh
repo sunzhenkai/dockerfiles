@@ -22,7 +22,7 @@ echo "executor.port=${EXECUTOR_PORT}" >>conf/azkaban.properties
 table_count=$(mariadb --host $MYSQL_HOST --port=$MYSQL_PORT --user=$MYSQL_USER --password=$MYSQL_PASSWORD --database=azkaban -e 'show tables' | wc -l)
 # init database
 if [ ! -e 'dbinited' ] && [ $table_count -le 4 ]; then
-  mariadb --host=$MYSQL_HOST --user=$MYSQL_USER --password=$MYSQL_PASSWORD --database=azkaban </app/azkaban-db/create-all-sql-*.sql
+  cat /app/azkaban-db/create-all-sql-*.sql | mariadb --host=$MYSQL_HOST --user=$MYSQL_USER --password=$MYSQL_PASSWORD --database=azkaban #</app/azkaban-db/create-all-sql-*.sql
   if [ "$?" == "0" ]; then
     touch dbinited
     echo "init database successed"
