@@ -8,4 +8,4 @@ SHORT_VERSION=${VERSION:0:8}
 IMAGE_NAME="sunzhenkai/azkaban-executor-server"
 docker build --build-arg AZKABAN_BASE_VERSION=$SHORT_VERSION -t $IMAGE_NAME "$BASE" || exit 1
 docker tag $IMAGE_NAME $IMAGE_NAME:$SHORT_VERSION
-#docker push $IMAGE_NAME:${SHORT_VERSION}
+docker push $IMAGE_NAME:${SHORT_VERSION}
