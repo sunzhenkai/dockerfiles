@@ -1,6 +1,9 @@
 build:
 	@bash scripts/build.sh $(name) $(tag)
 
+buildx:
+	@bash $(path)/build.sh
+
 create:
 	@docker run -it -d --name=$(name)-$(tag) sunzhenkai/$(name):$(tag)
 
@@ -13,3 +16,4 @@ login:
 
 push:
 	@docker push sunzhenkai/$(name):$(tag)
+
