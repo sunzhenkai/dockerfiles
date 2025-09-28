@@ -28,7 +28,7 @@ RUN systemctl enable jupyter
 
 # config
 RUN ssh-keygen -A && mkdir -p /root/.ssh && chmod 0700 /root/.ssh \
-    && echo LANG=en_US.UTF-8 > /etc/locale.conf
+  && echo LANG=en_US.UTF-8 > /etc/locale.conf
 RUN systemctl enable ssh
 RUN echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
 RUN echo "PermitRootLogin yes" >> /etc/ssh/sshd_config

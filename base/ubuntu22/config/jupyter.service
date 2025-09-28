@@ -1,0 +1,14 @@
+[Unit]
+Description=Jupyter Notebook
+
+[Service]
+Type=simple
+PIDFile=/run/jupyter.pid
+ExecStart=jupyter server --ip 0.0.0.0 --port 8085 --notebook-dir=/data/jupyter/notebooks --no-browser --allow-root --config=/data/jupyter/jupyter_server_config.json
+User=root
+Group=root
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
