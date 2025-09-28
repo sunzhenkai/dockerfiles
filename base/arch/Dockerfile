@@ -1,11 +1,11 @@
-FROM manjarolinux/base:20250504
+# FROM manjarolinux/base:20250504
+FROM archlinux:multilib-devel-20250921.0.423275
 LABEL maintainer="zhenkai.sun@qq.com"
 SHELL ["/bin/bash", "--login", "-c"]
 
 # install packages
-RUN pacman-mirrors --geoip 
 RUN sudo pacman -Syy
-RUN pacman -S --noconfirm --needed vim openssl openssh make cmake git ripgrep base-devel pamac-cli
+RUN pacman -S --noconfirm --needed vi vim neovim openssl openssh make cmake git ripgrep base-devel
 
 # config
 RUN ssh-keygen -A && chmod 0700 /root/.ssh \

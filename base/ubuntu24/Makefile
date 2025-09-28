@@ -2,14 +2,14 @@
 
 AUTHOR = sunzhenkai
 PROJECT = development
-CONTAINER_NAME = dev-base
+CONTAINER_NAME = dev-ubuntu24
 # @env DOCKER_BUILDKIT=1 docker build -t $(AUTHOR)/$(PROJECT) .
 
 build:
 	@git submodule update --init
 	@docker build -t $(AUTHOR)/$(PROJECT) .
 create:
-	@docker run -it -d --privileged --sysctl net.core.somaxconn=10240 -p 18800:18800 -p 2022:22 --name=$(CONTAINER_NAME) $(AUTHOR)/$(PROJECT)
+	@docker run -it -d --privileged --sysctl net.core.somaxconn=10240 -p 18800:18800 -p 2022:22 -h dev --name=$(CONTAINER_NAME) $(AUTHOR)/$(PROJECT)
 login:
 	@docker exec -it $(CONTAINER_NAME) /bin/bash
 rmi:
