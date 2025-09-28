@@ -5,20 +5,7 @@ SHELL ["/bin/bash", "--login", "-c"]
 # install packages
 RUN pacman-mirrors --geoip 
 RUN sudo pacman -Syy
-RUN pacman -S --noconfirm --needed vim openssl openssh make cmake git emacs \
-  ripgrep base-devel pamac-cli python3-pip
-
-# pip packages
-RUN pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
-
-## spacemacs
-# RUN git clone https://github.com/syl20bnr/spacemacs $HOME/.emacs.d
-
-## jupyter
-RUN mkdir -p /data/jupyter/notebooks
-COPY config/jupyter.service /etc/systemd/system/
-COPY config/jupyter_notebook_config.py /data/jupyter/
-RUN systemctl enable jupyter
+RUN pacman -S --noconfirm --needed vim openssl openssh make cmake git ripgrep base-devel pamac-cli
 
 # config
 RUN ssh-keygen -A && chmod 0700 /root/.ssh \
@@ -30,6 +17,5 @@ RUN echo "PubkeyAuthentication yes" >> /etc/ssh/sshd_config
 RUN touch /root/.ssh/authorized_keys && chmod 0644 /root/.ssh/authorized_keys
 
 EXPOSE 22
-EXPOSE 8085
 WORKDIR /root
 ENTRYPOINT ["/usr/sbin/init"]
